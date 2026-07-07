@@ -8,7 +8,12 @@ public:
         unordered_map<int,int> map;
 
         for(int i = 0; i<elements.size();i++){
-            map[elements[i]] = i;
+            if(map.count(elements[i])){
+                map[elements[i]] = min(map[elements[i]], i);
+            }
+            else{
+                map[elements[i]] = i;
+            }
         }
 
         for(int i = 0;i<n;i++){
