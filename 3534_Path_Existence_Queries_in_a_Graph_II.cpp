@@ -130,6 +130,8 @@
 
 class Solution {
 public:
+
+    
     vector<int> pathExistenceQueries(int n, vector<int>& nums, int maxDiff, vector<vector<int>>& queries) {
         vector<pair<int,int>> newNums(n);
         // making pairs
@@ -162,6 +164,18 @@ public:
 
             st[i][0] = r;
         }
+
+        /*
+        Here you might be confused if we are taking the farthest jump then how we will account for
+        the nodes in between.
+
+        Things is, if r is the farthest node from i such that
+        d[r] - d[i] <=maxDiff then there is a edge between them
+
+        also since sorted, any x,  i<=x<=r, we can reach to x in one step because
+
+        d[x]-d[i] is also <=maxDiff as from the above condition
+        */
 
         for(int j = 1;j<18;j++){
             for(int i =0;i<n;i++){
