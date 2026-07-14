@@ -155,8 +155,6 @@ public:
             if(r<i) r = i;
 
             while(r+1<n && 
-                newNums[r+1].first - newNums[r].first <=maxDiff 
-                && 
                 newNums[r+1].first - newNums[i].first<=maxDiff
             ){
                 r++;
