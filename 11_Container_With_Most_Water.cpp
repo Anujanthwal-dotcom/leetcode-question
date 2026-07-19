@@ -40,7 +40,9 @@ public:
         int i = 0;
         int j = n - 1;
 
-
+        /*
+        we hold potential tall stick in hope that we will get another tall stick.
+        */
         int mx = -1;
         while(i<=j){
             int x = j - i;
