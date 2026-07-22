@@ -41,23 +41,32 @@
 class Solution {
 public:
     int MOD = (int)1e9+7;
+    /*
+    sort the elements because we don't care about the order of the heroes selected.
 
-    int pw(int a ,int b){
-        int res = 1;
-        int cur = a%MOD;
+    factor stores the multiplication factor for each index.
 
-        while(b>0){
-            if((b&1) == 1){
-                res = (res * cur)%MOD;
-            }
+    2,1,4 -> 1,2,4
 
-            cur = (cur*cur)%MOD;
-            b=b>>1;
-        }
+    for the first element:
+    1*1
+    for second element:
+    1*1 + 2*1 = 2*1 + 2*1 - 1
+    for third element:
+    1*2+2*1+4*1 = 4*1 + 1*2 + 2*2 - 2
+    => these power of two comes from the fact that we will choose index i and j i>=j,
+    elements between i and j will be choosen based on combinatorics.
 
-        return res;
-    }
+    say 5 elements are between i and j: then 5c0+5c1+5c2+5c3+5c4+5c5 = 2^5
 
+    this gives the equation:
+    factor[i] = nums[i] + 2*factor[i-1] - nums[i-1]
+    //this nums[i-1] is there because if j == i-1 or j == i, then there are no elements between them. Hence the factor is 1 and 1. 
+
+    why this works:
+
+    sorted elements ensure that current element is associated with elements smaller then it. This helps in determining maximum and minimums easily.
+    */
     int sumOfPower(vector<int>& nums) {
         sort(nums.begin(),nums.end());
 
