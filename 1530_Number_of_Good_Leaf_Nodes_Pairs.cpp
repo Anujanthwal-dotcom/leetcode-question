@@ -39,17 +39,17 @@
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
- *     int val;
+ *     long long val;
  *     TreeNode *left;
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(long long x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(long long x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
 class Solution {
 public:
-    void dfs(unordered_map<int,int>& map, unordered_map<int,int>& parent, vector<int>& leaf, TreeNode* node, int index,int level,int prt){
+    void dfs(unordered_map<long long,long long>& map, unordered_map<long long,long long>& parent, vector<long long>& leaf, TreeNode* node, long long index,long long level,long long prt){
         if(node == NULL) return;
 
         parent[index] = prt;
@@ -64,23 +64,23 @@ public:
         dfs(map,parent,leaf,node->right,2*index+2,level+1,index);
     }
 
-    int countPairs(TreeNode* root, int distance) {
-        unordered_map<int,int> map;
-        unordered_map<int,int> parent;
-        vector<int> leaf;
+    int countPairs(TreeNode* root, long long distance) {
+        unordered_map<long long,long long> map;
+        unordered_map<long long,long long > parent;
+        vector<long long> leaf;
 
         dfs(map,parent,leaf,root,0,0,-1);
 
-        int cnt = 0;
+        long long cnt = 0;
 
-        for(int i = 0;i<leaf.size();i++){
-            for(int j = i+1;j<leaf.size();j++){
-                int first_val = leaf[i];
-                int second_val = leaf[j];
-                int fi = first_val;
-                int si = second_val;
-                vector<int> first;
-                vector<int> second;
+        for(long long i = 0;i<leaf.size();i++){
+            for(long long j = i+1;j<leaf.size();j++){
+                long long first_val = leaf[i];
+                long long second_val = leaf[j];
+                long long fi = first_val;
+                long long si = second_val;
+                vector<long long> first;
+                vector<long long> second;
                 
                 while(first_val != -1){
                     first.push_back(first_val);
@@ -92,18 +92,18 @@ public:
                     second_val = parent[second_val];
                 }
 
-                int common_ancestor;
+                long long common_ancestor;
                 
                 reverse(first.begin(),first.end());
                 reverse(second.begin(),second.end());
 
-                for(int k = 0;k<min(first.size(),second.size());k++){
+                for(long long k = 0;k<min(first.size(),second.size());k++){
                     if(first[k] == second[k]) {
                         common_ancestor = first[k];
                     }
                 }
 
-                int distance_between_first_second = (map[fi] - map[common_ancestor]) + (map[si] - map[common_ancestor]);
+                long long distance_between_first_second = (map[fi] - map[common_ancestor]) + (map[si] - map[common_ancestor]);
 
                 if(distance_between_first_second <= distance){
                     cnt++;
@@ -111,6 +111,6 @@ public:
             }
         }
 
-        return cnt;
+        return (int)cnt;
     }
 };
