@@ -94,10 +94,7 @@ public:
 
                 int common_ancestor;
                 
-                reverse(first.begin(),first.end());
-                reverse(second.begin(),second.end());
-
-                for(int k = 0;k<min(first.size(),second.size());k++){
+                for(int k = min(first.size(),second.size())-1;k>=0;k--){
                     if(first[k] == second[k]) {
                         common_ancestor = first[k];
                     }
