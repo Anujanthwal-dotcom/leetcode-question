@@ -60,15 +60,19 @@ private:
         vector<int> left = postOrder(currentNode->left, distance);
         vector<int> right = postOrder(currentNode->right,distance);
 
+
+        //index from 0 to 10 are for storing number of nodes at that distance. the 11th index is for storing number of good pairs.
         vector<int> current(12);
 
-
+        // calculating nodes at a certain distance from current.
         for(int i = 0;i<10;i++){
             current[i+1] = left[i] + right[i];
         }
-
+        // add already calculated good pairs for the left and right subtree.
         current[11] += left[11] + right[11];
 
+
+        // calculating number of good pairs whose path passsed through current node.
         for(int d1 = 0;d1<=distance;d1++){
             for(int d2 = 0;d2<=distance;d2++){
                 if(2+d1+d2 <=distance){
