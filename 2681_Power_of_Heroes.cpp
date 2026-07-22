@@ -44,7 +44,7 @@ public:
 
     int pw(int a ,int b){
         int res = 1;
-        int cur = a;
+        int cur = a%MOD;
 
         while(b>0){
             if((b&1) == 1){
@@ -57,6 +57,7 @@ public:
 
         return res;
     }
+
     int sumOfPower(vector<int>& nums) {
         sort(nums.begin(),nums.end());
 
