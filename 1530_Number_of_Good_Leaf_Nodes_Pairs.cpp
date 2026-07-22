@@ -54,7 +54,7 @@ public:
 
         parent[index] = prt;
         map[index] = level;
-        
+
         if(node->left == NULL && node->right == NULL){
             leaf.push_back(index);
             return;
@@ -81,13 +81,13 @@ public:
                 vector<int> first;
                 vector<int> second;
 
-                while(parent[first_val] != -1){
-                    first.push_back(parent[first_val]);
+                while(first_val != -1){
+                    first.push_back(first_val);
                     first_val = parent[first_val];
                 }
 
-                while(parent[second_val] != -1){
-                    second.push_back(parent[second_val]);
+                while(second_val != -1){
+                    second.push_back(second_val);
                     second_val = parent[second_val];
                 }
 
