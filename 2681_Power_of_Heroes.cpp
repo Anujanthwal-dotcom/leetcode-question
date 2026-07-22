@@ -74,7 +74,7 @@ public:
         int sum = 0;
 
         for(int i = 0;i<n;i++){
-            sum = (sum + (nums[i]*(nums[i]*factor[i])%MOD)%MOD)%MOD;
+            sum = (sum + (((nums[i]*nums[i])%MOD)*factor[i])%MOD)%MOD;
         }
 
         return sum;
