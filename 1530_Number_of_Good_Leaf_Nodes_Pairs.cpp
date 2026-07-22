@@ -85,7 +85,7 @@ public:
                 }
 
                 while(parent[second_val] != -1){
-                    first.push_back(parent[second_val]);
+                    second.push_back(parent[second_val]);
                     second_val = parent[second_val];
                 }
 
