@@ -71,6 +71,10 @@ public:
             factor[i] = (factor[i-1] + (nums[i]*pw(2,i-1))%MOD)%MOD;
         }
 
+        for(int i: factor){
+            cout<<i<<endl;
+        }
+
         int sum = 0;
 
         for(int i = 0;i<n;i++){
