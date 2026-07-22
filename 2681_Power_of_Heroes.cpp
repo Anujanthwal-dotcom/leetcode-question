@@ -68,7 +68,7 @@ public:
         factor[0] = nums[0];
 
         for(int i = 1;i<n;i++){
-            factor[i] = (nums[i] + (2*factor[i-1]-nums[i-1] + MOD)%MOD)%MOD; 
+            factor[i] = (nums[i] + ((2*factor[i-1])%MOD-nums[i-1] + MOD)%MOD)%MOD; 
         }
 
         int sum = 0;
