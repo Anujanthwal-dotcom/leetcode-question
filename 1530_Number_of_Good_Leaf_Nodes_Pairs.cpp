@@ -77,10 +77,11 @@ public:
             for(int j = i+1;j<leaf.size();j++){
                 int first_val = leaf[i];
                 int second_val = leaf[j];
-                
+                int fi = first_val;
+                int si = second_val;
                 vector<int> first;
                 vector<int> second;
-
+                
                 while(first_val != -1){
                     first.push_back(first_val);
                     first_val = parent[first_val];
@@ -102,7 +103,7 @@ public:
                     }
                 }
 
-                int distance_between_first_second = (map[first_val] - map[common_ancestor]) + (map[second_val] - map[common_ancestor]);
+                int distance_between_first_second = (map[fi] - map[common_ancestor]) + (map[si] - map[common_ancestor]);
 
                 if(distance_between_first_second <= distance){
                     cnt++;
