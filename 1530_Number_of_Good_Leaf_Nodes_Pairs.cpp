@@ -39,78 +39,49 @@
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
- *     long long val;
+ *     int val;
  *     TreeNode *left;
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(long long x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(long long x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
 class Solution {
-public:
-    void dfs(unordered_map<long long,long long>& map, unordered_map<long long,long long>& parent, vector<long long>& leaf, TreeNode* node, long long index,long long level,long long prt){
-        if(node == NULL) return;
-
-        parent[index] = prt;
-        map[index] = level;
-
-        if(node->left == NULL && node->right == NULL){
-            leaf.push_back(index);
-            return;
+private:
+    vector<int> postOrder(TreeNode* currentNode, int distance){
+        if(!currentNode) return vector<int>(12);
+        else if(!currentNode->left && !currentNode->right){
+            vector<int> current(12);
+            current[0] = 1;
+            return current;
         }
 
-        dfs(map,parent,leaf,node->left,2*index+1,level+1,index);
-        dfs(map,parent,leaf,node->right,2*index+2,level+1,index);
-    }
+        vector<int> left = postOrder(currentNode->left, distance);
+        vector<int> right = postOrder(currentNode->right,distance);
 
-    int countPairs(TreeNode* root, long long distance) {
-        unordered_map<long long,long long> map;
-        unordered_map<long long,long long > parent;
-        vector<long long> leaf;
+        vector<int> current(12);
 
-        dfs(map,parent,leaf,root,0,0,-1);
 
-        long long cnt = 0;
+        for(int i = 0;i<10;i++){
+            current[i+1] = left[i] + right[i];
+        }
 
-        for(long long i = 0;i<leaf.size();i++){
-            for(long long j = i+1;j<leaf.size();j++){
-                long long first_val = leaf[i];
-                long long second_val = leaf[j];
-                long long fi = first_val;
-                long long si = second_val;
-                vector<long long> first;
-                vector<long long> second;
-                
-                while(first_val != -1){
-                    first.push_back(first_val);
-                    first_val = parent[first_val];
-                }
+        current[11] += left[11] + right[11];
 
-                while(second_val != -1){
-                    second.push_back(second_val);
-                    second_val = parent[second_val];
-                }
-
-                long long common_ancestor;
-                
-                reverse(first.begin(),first.end());
-                reverse(second.begin(),second.end());
-
-                for(long long k = 0;k<min(first.size(),second.size());k++){
-                    if(first[k] == second[k]) {
-                        common_ancestor = first[k];
-                    }
-                }
-
-                long long distance_between_first_second = (map[fi] - map[common_ancestor]) + (map[si] - map[common_ancestor]);
-
-                if(distance_between_first_second <= distance){
-                    cnt++;
+        for(int d1 = 0;d1<=distance;d1++){
+            for(int d2 = 0;d2<=distance;d2++){
+                if(2+d1+d2 <=distance){
+                    current[11] +=left[d1]*right[d2];
                 }
             }
         }
 
-        return (int)cnt;
+        return current;
+    }
+
+public:
+    int countPairs(TreeNode* root, int distance) {
+        return postOrder(root, distance)[11];
     }
 };
