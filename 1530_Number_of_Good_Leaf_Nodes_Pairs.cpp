@@ -76,6 +76,7 @@ public:
             for(int j = i+1;j<leaf.size();j++){
                 int first_val = leaf[i];
                 int second_val = leaf[j];
+                
                 vector<int> first;
                 vector<int> second;
 
@@ -94,7 +95,6 @@ public:
                 for(int k = 0;k<min(first.size(),second.size());k++){
                     if(first[k] == second[k]) {
                         common_ancestor = first[k];
-                        break;
                     }
                 }
 
