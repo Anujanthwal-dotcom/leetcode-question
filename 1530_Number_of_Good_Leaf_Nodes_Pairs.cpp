@@ -49,7 +49,7 @@
  */
 class Solution {
 public:
-    void dfs(unordered_map<int,int>& map, vector<int>& parent, vector<int>& leaf, TreeNode* node, int index,int level,int prt){
+    void dfs(unordered_map<int,int>& map, unordered_map<int,int>& parent, vector<int>& leaf, TreeNode* node, int index,int level,int prt){
         if(node == NULL) return;
 
         parent[index] = prt;
@@ -66,7 +66,7 @@ public:
 
     int countPairs(TreeNode* root, int distance) {
         unordered_map<int,int> map;
-        vector<int> parent(1030);
+        unordered_map<int,int> parent;
         vector<int> leaf;
 
         dfs(map,parent,leaf,root,0,0,-1);
