@@ -54,6 +54,7 @@ public:
 
         parent[index] = prt;
         map[index] = level;
+        
         if(node->left == NULL && node->right == NULL){
             leaf.push_back(index);
             return;
@@ -91,8 +92,11 @@ public:
                 }
 
                 int common_ancestor;
+                
+                reverse(first.begin(),first.end());
+                reverse(second.begin(),second.end());
 
-                for(int k = min(first.size(),second.size())-1;k>=0;k--){
+                for(int k = 0;k<min(first.size(),second.size());k++){
                     if(first[k] == second[k]) {
                         common_ancestor = first[k];
                     }
