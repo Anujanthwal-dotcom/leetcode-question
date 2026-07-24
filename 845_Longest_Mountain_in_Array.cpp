@@ -80,14 +80,11 @@ public:
                 return 0;
             }
 
-            if(isSholder){
-                i = j;
-                continue;
-            }
-
             while(j<n-1 && arr[j]>arr[j+1]) j++;
 
-            size = max(size, j-i+1);
+
+            if(!isSholder)
+                size = max(size, j-i+1);
             i = j;
         }
 
