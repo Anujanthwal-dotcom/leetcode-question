@@ -55,17 +55,40 @@ public:
         int j = 0;
         int size = 0;
         
-        while(j<n-1){
-            while(arr[j]>=arr[j+1]){
-                j++;i++;
-            }
-            
-            if(j<n-1)
-                while(arr[j]<arr[j+1]) j++;
-            if(j<n-1)
-                while(arr[j]>arr[j+1])j++;
+        if(n<3){
+            return 0;
+        }
 
-            size = max(size,j-i+1);
+        while(j<n-1 && arr[j]>=arr[j+1]){
+            j++;
+        }
+
+        if(j == n-1){
+            return 0;
+        }
+
+        i = j;
+
+        while(j<n-1){
+            bool isSholder = false;
+            while(j<n-1 && arr[j]<=arr[j+1]){ 
+                if(arr[j] == arr[j+1]) isSholder = true;
+                j++;
+            }
+
+            if(j==n-1){
+                return 0;
+            }
+
+            if(isSholder){
+                i = j;
+                continue;
+            }
+
+            while(j<n-1 && arr[j]>arr[j+1]) j++;
+
+            size = max(size, j-i+1);
+            i = j;
         }
 
         return size;
