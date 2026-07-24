@@ -49,43 +49,34 @@
 
 class Solution {
 public:
-    int longestMountain(vector<int>& arr) {
-        int n = arr.size();
-        int i = 0;
-        int j = 0;
+    int longestMountain(vector<int>& A) {
         int size = 0;
-        
-        if(n<3){
-            return 0;
-        }
 
-        while(j<n-1 && arr[j]>=arr[j+1]){
-            j++;
-        }
 
-        if(j == n-1){
-            return 0;
-        }
+        int i = 1;
 
-        i = j;
-
-        while(j<n-1){
-            bool isSholder = false;
-            while(j<n-1 && arr[j]<=arr[j+1]){ 
-                if(arr[j] == arr[j+1]) isSholder = true;
-                j++;
+        while(i<A.size()){
+            while(i<A.size() && A[i-1] == A[i]){
+                i++;
             }
 
-            if(j==n-1){
-                return 0;
+            int up = 0;
+
+            while(i<A.size() && A[i-1]<A[i]){
+                up++;
+                i++;
             }
 
-            while(j<n-1 && arr[j]>=arr[j+1]) j++;
+            int down = 0;
 
+            while(i<A.size() && A[i-1]>A[i]){
+                down++;
+                i++;
+            }
 
-            if(!isSholder)
-                size = max(size, j-i+1);
-            i = j;
+            if(up>0 && down>0){
+                size = max(size, up+down+1);
+            }
         }
 
         return size;
