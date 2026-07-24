@@ -80,7 +80,7 @@ public:
                 return 0;
             }
 
-            while(j<n-1 && arr[j]>arr[j+1]) j++;
+            while(j<n-1 && arr[j]>=arr[j+1]) j++;
 
 
             if(!isSholder)
