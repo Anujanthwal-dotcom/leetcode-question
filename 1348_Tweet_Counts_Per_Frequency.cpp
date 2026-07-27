@@ -95,7 +95,7 @@ public:
 
         while(s<=endTime){
             auto lo = times.lower_bound(s);
-            auto hi = times.upper_bound(e);
+            auto hi = times.lower_bound(e);
             ans.push_back(distance(lo, hi));
             s = period+1;
             e = min(s + period - 1, endTime);
