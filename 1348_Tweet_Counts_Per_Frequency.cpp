@@ -66,6 +66,13 @@ solution approach:
 1. tweetName -> list<int> or set<int> occurrance time
 2. for a chunk of seconds [s,e], find the iterators that are s<=x and e<y with lower bound and upper bound functions.
 3. so total in a time chunk is y - x.
+
+we use upper bound here because situation can be:
+
+e e e e e e e f
+
+if lower bound on e then all other e's will be missed.
+upper bound on e points to f.
 */
 
 class TweetCounts {
