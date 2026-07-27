@@ -70,7 +70,7 @@ solution approach:
 
 class TweetCounts {
 public:
-    unordered_map<string,set<int>> map;
+    unordered_map<string,multiset<int>> map;
 
     TweetCounts() {
         
@@ -95,9 +95,9 @@ public:
 
         while(s<=endTime){
             auto lo = times.lower_bound(s);
-            auto hi = times.lower_bound(e);
+            auto hi = times.upper_bound(e);
             ans.push_back(distance(lo, hi)+1);
-            s = period+1;
+            s += period;
             e = min(s + period - 1, endTime);
         }
 
