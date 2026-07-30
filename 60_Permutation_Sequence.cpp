@@ -59,8 +59,11 @@ public:
         for(int i = 1;i<10;i++){
             fac[i] = i*fac[i-1];
         }
+
+        
         k-=1;
-        while(k>0){
+
+        while(sequence.size()>0){
 
             int idx = k/fac[n-1];
 
