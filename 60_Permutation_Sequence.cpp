@@ -63,7 +63,7 @@ public:
         while(k>0){
             int idx = k/fac[n-1];
 
-            ans.push_back(sequence[idx]);
+            ans = ans + to_string(sequence[idx]);
             sequence.erase(sequence.begin()+idx);
 
             k = k%fac[n-1];
