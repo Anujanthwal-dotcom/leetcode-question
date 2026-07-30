@@ -60,7 +60,8 @@ public:
             fac[i] = i*fac[i-1];
         }
 
-        while(k>0){
+        while(n>0){
+
             int idx = k/fac[n-1];
 
             ans = ans + to_string(sequence[idx]);
