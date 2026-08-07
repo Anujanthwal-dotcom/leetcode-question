@@ -49,22 +49,13 @@
 class Solution {
 public:
     vector<int> solveQueries(vector<int>& nums, vector<int>& queries) {
-        vector<int> newNums;
         int n = nums.size();
-
-        for(int i = 0;i<n;i++){
-            newNums.push_back(nums[i]);
-        }
-
-        for(int i = 0;i<n;i++){
-            newNums.push_back(nums[i]);
-        }
-        for(int i = 0;i<n;i++){
-            newNums.push_back(nums[i]);
-        }
-
-
         int n2 = 3*n;
+        vector<int> newNums(n2);
+
+        for(int i = 0;i<n;i++){
+            newNums[i] = newNums[i+n] = newNums[i+2*n] = nums[i];
+        }
 
         unordered_map<int,vector<int>> indicesMap;
 
