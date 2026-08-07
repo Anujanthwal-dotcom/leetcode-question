@@ -59,7 +59,7 @@ public:
         int take = offers[idx][2] + solve(offers,upperIdx);
         int skip = solve(offers,idx+1);
 
-        return max(take,skip); 
+        return dp[idx] = max(take,skip); 
     }
 
     int maximizeTheProfit(int n, vector<vector<int>>& offers) {
