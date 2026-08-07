@@ -66,10 +66,13 @@ public:
                     break;
                 }
             }
-
-            ans.push_back(map[k);
+            int next = (h+1)%map[k].size();
+            if(next != h)
+                ans.push_back(map[k][next]);
+            else 
+                ans.push_back(-1);
         }
 
         return ans;
-    }][(h+1)%map[k].size()]
+    }
 };
