@@ -71,7 +71,7 @@ public:
             storeStart.push_back(offer[0]);
         }
         
-        return solve(offers,n);
+        return solve(offers,0);
     }
 
 
