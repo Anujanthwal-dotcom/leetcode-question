@@ -78,12 +78,10 @@ public:
             int newIdx = queryIdx + n;
             int prev;
             int next;
-            for(int i = 0;i<indices.size();i++){
-                if(newIdx == indices[i]){
-                    prev = indices[i-1];
-                    next = indices[i+1];
-                }
-            }
+            int i = lower_bound(indices.begin(),indices.end(),newIdx)-indices.begin();
+
+            prev = indices[i-1];
+            next = indices[i+1];
 
             if(next - newIdx == n){
                 ans.push_back(-1);
