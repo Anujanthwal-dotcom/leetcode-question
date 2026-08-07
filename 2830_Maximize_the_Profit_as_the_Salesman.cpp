@@ -63,7 +63,7 @@ public:
     }
 
     int maximizeTheProfit(int n, vector<vector<int>>& offers) {
-        dp.assign(n,-1);
+        dp.assign(offers.size(),-1);
         
         sort(offers.begin(),offers.end());
         
