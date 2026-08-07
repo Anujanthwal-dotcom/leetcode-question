@@ -49,38 +49,50 @@
 class Solution {
 public:
     vector<int> solveQueries(vector<int>& nums, vector<int>& queries) {
+        vector<int> newNums;
         int n = nums.size();
-        unordered_map<int,vector<int>> map;
-        vector<int> ans;
+
         for(int i = 0;i<n;i++){
-            map[nums[i]].push_back(i);
+            newNums.push_back(nums[i]);
         }
 
-        for(int query : queries){
-            int k = nums[query];
-            int idx = query;
-            int h;
-            for(int i = 0;i<map[k].size();i++){
-                if(map[k][i] == idx){
-                    h = i;
-                    break;
+        for(int i = 0;i<n;i++){
+            newNums.push_back(nums[i]);
+        }
+        for(int i = 0;i<n;i++){
+            newNums.push_back(nums[i]);
+        }
+
+
+        int n2 = 3*n;
+
+        unordered_map<int,vector<int>> indicesMap;
+
+        for(int i = 0;i<n2;i++){
+            indicesMap[newNums[i]].push_back(i);
+        }
+        vector<int> ans;
+        for(int queryIdx:queries){
+            vector<int> &indices = indicesMap[nums[queryIdx]];
+
+            int newIdx = queryIdx + n;
+            int prev;
+            int next;
+            for(int i = 0;i<indices.size();i++){
+                if(newIdx == indices[i]){
+                    prev = indices[i-1];
+                    next = indices[i+1];
                 }
             }
-            int next = (h+1)%map[k].size();
 
-            if(next != h){
-                int dis;
-                if(next <h){
-                    dis = n - h;
-                    dis+=map[k][next];
-                }
-                else{
-                    dis = map[k][next];
-                }
-                ans.push_back(dis);
-                }
-            else {
-                ans.push_back(-1);}
+            if(next - newIdx == n){
+                ans.push_back(-1);
+            }
+            else{
+                ans.push_back(min(newIdx-prev, next-newIdx));
+            }
+
+
         }
 
         return ans;
