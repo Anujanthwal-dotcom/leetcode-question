@@ -67,15 +67,15 @@ public:
                 }
             }
             int next = (h+1)%map[k].size();
-            
+
             if(next != h){
                 int dis;
                 if(next <h){
                     dis = n - h;
-                    dis+=next;
+                    dis+=map[k][next];
                 }
                 else{
-                    dis = next;
+                    dis = map[k][next];
                 }
                 ans.push_back(dis);
                 }
