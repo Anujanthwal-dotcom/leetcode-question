@@ -10,3 +10,19 @@ for(int j = 1;j<LOG;j++){
 up[i][j] = up[up[i][j-1]][j-1];
 }
 }
+
+
+//dfs in graph
+
+void dfs(int node, int parent,
+         vector<vector<int>>& adj,
+         vector<int>& par) {
+
+    par[node] = parent;
+
+    for (int child : adj[node]) {
+        if (child == parent) continue;
+
+        dfs(child, node, adj, par);
+    }
+}
