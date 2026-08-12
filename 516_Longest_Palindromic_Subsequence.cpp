@@ -44,7 +44,8 @@ public:
         reverse(rs.begin(),rs.end());
 
         int dp[n+1][n+1];
-
+        for(int i = 0;i<=n;i++) dp[0][i] = 0;
+        for(int j = 0;j<=n;j++) dp[j][0] = 0;
         for(int i = 1;i<=n;i++){
             for(int j = 1;j<=n;j++){
                 if(s[i] == rs[j]){
