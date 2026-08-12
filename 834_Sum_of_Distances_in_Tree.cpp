@@ -45,64 +45,52 @@
 //
 // 	  * The given input represents a valid tree.
 
+/*
+rerooting the graph
+
+logic:
+calculate distance sum from a assume root node say 0.
+
+when we move to a child node, the sum of distance for that node will be sumforparent-count[the current node] + total_nodes - count[the current node]
+*/
+
 class Solution {
 public:
     vector<int> sumOfDistancesInTree(int n, vector<vector<int>>& edges) {
-        // Build adjacency list representation of the tree
-        vector<vector<int>> graph(n);
-        for (auto& edge : edges) {
-            int nodeA = edge[0];
-            int nodeB = edge[1];
-            graph[nodeA].push_back(nodeB);
-            graph[nodeB].push_back(nodeA);
+        vector<vector<int>> graph(n,vector<int>());
+        for(auto e:edges){
+            graph[e[0]].push_back(e[1]);
+            graph[e[1]].push_back(e[0]);
         }
-      
-        // result[i] will store the sum of distances from node i to all other nodes
-        vector<int> result(n);
-        // subtreeSize[i] will store the number of nodes in the subtree rooted at node i
-        vector<int> subtreeSize(n);
 
-        // First DFS: Calculate the sum of distances for root node (node 0)
-        // and the size of each subtree
-        function<void(int, int, int)> calculateRootDistance = [&](int currentNode, int parent, int depth) {
-            // Add current depth to the total distance sum for root
+        vector<int> result(n,0);
+        vector<int> count(n,1);
+
+        function<void(int,int,int)> dfsForAssumedRoot = [&](int v,int parent,int depth){
             result[0] += depth;
-            // Initialize subtree size with current node
-            subtreeSize[currentNode] = 1;
-          
-            // Traverse all children (excluding parent)
-            for (int& neighbor : graph[currentNode]) {
-                if (neighbor != parent) {
-                    calculateRootDistance(neighbor, currentNode, depth + 1);
-                    // Add child's subtree size to current subtree
-                    subtreeSize[currentNode] += subtreeSize[neighbor];
+
+            for(int& i: graph[v]){
+                if(i != parent){
+                    dfsForAssumedRoot(i,v,depth+1);
+                    count[v] += count[i];
                 }
             }
         };
 
-        // Second DFS: Calculate sum of distances for all other nodes using re-rooting technique
-        // When moving from parent to child, the formula is:
-        // result[child] = result[parent] - subtreeSize[child] + (n - subtreeSize[child])
-        function<void(int, int, int)> reRootTree = [&](int currentNode, int parent, int parentSum) {
-            // Set the sum of distances for current node
-            result[currentNode] = parentSum;
-          
-            // Calculate sum for all children
-            for (int& neighbor : graph[currentNode]) {
-                if (neighbor != parent) {
-                    // When re-rooting from currentNode to neighbor:
-                    // - Nodes in neighbor's subtree get 1 closer (subtract subtreeSize[neighbor])
-                    // - Nodes outside neighbor's subtree get 1 farther (add n - subtreeSize[neighbor])
-                    int newSum = parentSum - subtreeSize[neighbor] + (n - subtreeSize[neighbor]);
-                    reRootTree(neighbor, currentNode, newSum);
+        function<void(int,int,int)> dfsForReroot = [&](int v,int parent,int parentSum){
+            result[v] = parentSum;
+            
+            for(int& i : graph[v]){
+                if(i != parent){
+                    int nextSum = result[v] - count[i] + n-count[i];
+                    dfsForReroot(i,v,nextSum);
                 }
             }
         };
 
-        // Execute both DFS traversals
-        calculateRootDistance(0, -1, 0);
-        reRootTree(0, -1, result[0]);
-      
+        dfsForAssumedRoot(0,-1,0);
+        dfsForReroot(0,-1, result[0]);
+
         return result;
     }
 };
