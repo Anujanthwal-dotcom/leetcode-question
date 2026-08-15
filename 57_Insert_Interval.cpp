@@ -64,7 +64,9 @@ public:
             }
         }
 
-        intervals.insert(intervals.begin()+pos,newInterval);
+        if(pos>=0){
+            intervals.insert(intervals.begin()+pos,newInterval);
+        }
 
         vector<vector<int>> mergedIntervals;
 
