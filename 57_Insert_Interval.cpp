@@ -50,25 +50,21 @@ public:
         //binary search to find position
 
         int i = 0;
-        int j = n-1;
-        int pos = 0;
+        int j = n;
 
-        while(i<=j){
-            int mid = i+(j-i)/2;
-            if(intervals[mid][0] >=key){
-                pos = mid;
-                j = mid-1;
+        while(i<j){
+            int mid = i + (j-i)/2;
+
+            if(intervals[mid][0] >= key){
+                j = mid;
             }
-            else{
+            else {
                 i = mid+1;
             }
         }
 
-        if(n>0)
-            intervals.insert(intervals.begin()+pos,newInterval);
-        else
-            intervals.push_back(newInterval);
-            
+        intervals.insert(intervals.begin()+j,newInterval);
+
         vector<vector<int>> mergedIntervals;
 
         mergedIntervals.push_back(intervals[0]);
