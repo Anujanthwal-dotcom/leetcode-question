@@ -53,6 +53,9 @@ public:
                 mergedIntervals.pop_back();
                 mergedIntervals.push_back(newInterval);
             }
+            else{
+                mergedIntervals.push_back(interval);
+            }
         }
         return mergedIntervals;
     }
