@@ -51,7 +51,7 @@ public:
 
         int i = 0;
         int j = n-1;
-        int pos = -1;
+        int pos = 0;
 
         while(i<=j){
             int mid = i+(j-i)/2;
@@ -64,10 +64,11 @@ public:
             }
         }
 
-        if(pos>=0){
+        if(n>0)
             intervals.insert(intervals.begin()+pos,newInterval);
-        }
-
+        else
+            intervals.push_back(newInterval);
+            
         vector<vector<int>> mergedIntervals;
 
         mergedIntervals.push_back(intervals[0]);
