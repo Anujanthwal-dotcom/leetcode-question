@@ -70,7 +70,7 @@ public:
 
         mergedIntervals.push_back(intervals[0]);
 
-        for(int i = 1;i<n;i++){
+        for(int i = 1;i<n+1;i++){
             vector<int> interval = intervals[i];
             vector<int> prev = mergedIntervals.back();
 
