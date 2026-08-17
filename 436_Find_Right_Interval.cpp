@@ -44,8 +44,9 @@
 // 	  * The start point of each interval is unique.
 
 /*
-[3,2,1]
-[4,3,2]
+
+starts = [3,2,1] -> [1,2,3]
+ends = [4,3,2]
 
 
 */
@@ -55,7 +56,7 @@ public:
 
     int search(int key,vector<pair<int,int>>& vec){
         int l = 0;
-        int r = vec.size()-1;
+        int r = vec.size();
         
         while(l<r){
             int mid = l + (r-l)/2;
