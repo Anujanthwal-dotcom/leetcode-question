@@ -46,6 +46,8 @@ public:
 
         sort(vec.begin(),vec.end());
 
+        if(vec[0].second>capacity) return false;
+
         for(int i = 1;i<vec.size();i++){
             vec[i].second = vec[i].second + vec[i-1].second;
 
