@@ -42,83 +42,53 @@
 //
 // 	  * At most 104 calls will be made to addRange, queryRange, and removeRange.
 
-/*
-we can use a vector to store the intervals
-we can check 
-
-*/
-
-
 class RangeModule {
 public:
-    map<int,int> mp;
-    RangeModule() {}
+    map<int,int> ranges;
+    RangeModule() {
+        
+    }
     
     void addRange(int left, int right) {
-        if(left>=right) return;
+        auto it = ranges.upper_bound(left);
 
-        auto it = mp.lower_bound(left);
-
-        if(it != mp.begin()){
-            auto prev = std::prev(it);
-
-            if(prev->second > left){
-                it = prev;
-                left = min(left, prev->first);
-                right = max(right,prev->second);
-            }
+        while(it != ranges.end() && it->first <=right){
+            right = max(it->second,right);
+            ++it;
+            ranges.erase(prev(it));
         }
 
-        while(it != mp.end() && it->first <=right){
-            left = min(left,it->first);
-            right = max(right, it->second);
-            it = mp.erase(it);
+        if(it != ranges.begin() && left<= (--it)->second){
+            it->second = max(it->second,right);
         }
-
-        mp[left] =right;
+        else{
+            ranges[left] = right;
+        }
     }
     
     bool queryRange(int left, int right) {
-        auto it = mp.upper_bound(left);
-
-        if(it == mp.begin()) return false;
-        it--;
-        return it->second >= right;
+        auto it = ranges.upper_bound(left);
+        if(it == ranges.begin()) return false;
+        return prev(it)->second >=right;
     }
     
     void removeRange(int left, int right) {
-        if(left >=right) return;
+        auto it = ranges.lower_bound(left);
+        int cutEnd = -1;
 
-        auto it = mp.lower_bound(left);
+        while(it != ranges.end() && it->first <right){
+            cutEnd = max(cutEnd,it->second);
+            it++;
+            ranges.erase(prev(it));
+        }   
 
-        if(it != mp.begin()){
-            auto prev = std::prev(it);
-
-            if(prev->second > left){
-                it = prev;
-            }
+        if(it != ranges.begin() && left< (--it)->second){
+            cutEnd = max(cutEnd,it->second);
+            it->second = left;
         }
 
-        while(it != mp.end() && it->first <right){
-            int start = it->first;
-            int end = it->second;
-
-            if(end<=left){
-                it++;
-                continue;
-            }
-
-            it = mp.erase(it);
-
-            if(start<left){
-                mp[start] = left;
-            } 
-
-
-            if(end>right){
-                mp[right] = end;
-                break;
-            }
+        if(right<cutEnd){
+            ranges[right] = cutEnd;
         }
     }
 };
