@@ -82,8 +82,8 @@ public:
         auto it = mp.upper_bound(left);
 
         if(it == mp.begin()) return false;
-
-        return (--it)->second >= right;
+        it--;
+        return it->second >= right;
     }
     
     void removeRange(int left, int right) {
