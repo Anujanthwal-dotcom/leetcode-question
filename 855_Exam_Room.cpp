@@ -64,8 +64,8 @@ public:
         for(int i = 0;i<n;i++){
             if(set.count(i)) continue;
 
-            int left=0;
-            int right=0;
+            int left=(int)1e9;
+            int right=(int)1e9;
 
             auto leftit = set.lower_bound(i);
             auto rightit = set.upper_bound(i);
