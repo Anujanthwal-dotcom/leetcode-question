@@ -68,8 +68,8 @@ public:
             int right=(int)1e9;
 
             auto leftit = set.lower_bound(i);
-            auto rightit = set.upper_bound(i);
-            
+            // auto rightit = set.upper_bound(i);
+            auto rightit = leftit;
 
             if(leftit != set.begin()){
                 leftit--;
