@@ -74,6 +74,8 @@ public:
             if(leftit != set.begin()){
                 leftit--;
                 left = i - *leftit;
+            } else{
+                left = *leftit - i;
             }
 
             if(rightit != set.end()){
