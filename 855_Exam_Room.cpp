@@ -54,39 +54,27 @@ public:
     }
     
     int seat() {
-        if(set.empty()){
-            set.insert(0);
-            return 0;
-        }
+        int idx = 0;
+        
+        if(!set.empty()){
+            int dist=*(set.begin());
 
-        int mxdist = 0;
-        int idx = -1;
-        for(int i = 0;i<n;i++){
-            if(set.count(i)) continue;
+            int prev = -1;
 
-            int left=(int)1e9;
-            int right=(int)1e9;
-
-            auto leftit = set.lower_bound(i);
-            // auto rightit = set.upper_bound(i);
-            auto rightit = leftit;
-
-            if(leftit != set.begin()){
-                leftit--;
-                left = i - *leftit;
-            } else{
-                left = *leftit - i;
+            for(int s: set){
+                if(prev != -1){
+                    int d = (s - prev)/2;
+                    if(d > dist){
+                        dist = d;
+                        idx = prev+d;
+                    }
+                }
+                prev = s;
             }
 
-            if(rightit != set.end()){
-                right = *rightit - i;
+            if(n-1-*(--set.end()) > dist){
+                idx = n-1;
             }
-
-            if(mxdist < min(left,right)){
-                mxdist = min(left,right);
-                idx = i;
-            }
-
         }
 
         set.insert(idx);
