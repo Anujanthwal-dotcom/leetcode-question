@@ -80,8 +80,8 @@ public:
                 right = *rightit - i;
             }
 
-            if(mxdist < max(left,right)){
-                mxdist = max(left,right);
+            if(mxdist < min(left,right)){
+                mxdist = min(left,right);
                 idx = i;
             }
 
