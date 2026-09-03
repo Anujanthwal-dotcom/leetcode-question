@@ -40,6 +40,8 @@
 //
 // 	  * 1 <= n <= 104
 
+//cant solve on my own
+
 class Solution {
 public:
     int superEggDrop(int k, int n) {
