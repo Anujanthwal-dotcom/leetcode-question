@@ -64,7 +64,7 @@ private:
 
         int a = 1+ min({la,lb,lc})+min({ra,rb,rc});
         int b = min({la+ra, la+rb,lb+ra});
-        int c = lc+rc;
+        int c = lb+rb;
 
         return {a,b,c};
     }
