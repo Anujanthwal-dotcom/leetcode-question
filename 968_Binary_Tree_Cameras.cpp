@@ -40,10 +40,12 @@
  * };
  */
 
+//can't do on my own
+
 struct NodeState {
-    int withCamera; //a
-    int coveredNoCamera; //b
-    int notCovered; //c
+    int withCamera; //a self monitor
+    int coveredNoCamera; //b monitor by children
+    int notCovered; //c monitored by parent
 };
 
 class Solution {
