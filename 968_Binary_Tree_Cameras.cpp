@@ -39,24 +39,33 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+struct NodeState {
+    int withCamera; //a
+    int coveredNoCamera; //b
+    int notCovered; //c
+};
+
 class Solution {
 public:
-    pair<int,int> dfs(TreeNode* node){
-        if(!node){
-            return make_pair(1e9,0);
-        }
-
-        auto [l,nl] = dfs(node->left);
-        auto [r,nr] = dfs(node->right);
-
-        int current = 1+nl+nr;
-        int notCurrent = min(l,nl) + min(r,nr);
-
-        return make_pair(current,notCurrent);
+    int minCameraCover(TreeNode* root) {
+        auto [a,b,c] = dfs(root);
+        return min(a,b);
     }
 
-    int minCameraCover(TreeNode* root) {
-        auto [current,notCurrent] = dfs(root);
-        return min(current, notCurrent);
+private:
+    NodeState dfs(TreeNode* node){
+        if(!node){
+            return {1<<29,0,0};
+        }
+
+        auto [la,lb,lc] = dfs(node->left);
+        auto [ra,rb,rc] =dfs(node->right);
+
+        int a = 1+ min({la,lb,lc})+min({ra,rb,rc});
+        int b = min({la+ra, la+rb,lb+ra});
+        int c = lc+rc;
+
+        return {a,b,c};
     }
 };
