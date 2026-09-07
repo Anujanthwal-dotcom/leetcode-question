@@ -47,7 +47,7 @@ public:
             for(int j = i;j>max(0,i-k);j--){
                 mx = max(mx,arr[j-1]);
 
-                dp[i] = max(dp[i],dp[j-1])+ mx*(i-j+1);
+                dp[i] = max(dp[i],dp[j-1]+ mx*(i-j+1));
             }
         }
 
