@@ -54,3 +54,8 @@ public:
         return dp[n];
     }
 };
+
+// Calculate the sum if we partition from j to i
+                // dp[j-1]: max sum up to position j-1
+                // maxValue * (i - j + 1): contribution of current partition
+                //   where all elements become maxValue
