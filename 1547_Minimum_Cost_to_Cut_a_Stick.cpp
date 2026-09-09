@@ -45,28 +45,41 @@
 class Solution {
 public:
     int minCost(int n, vector<int>& cuts) {
+        // Add boundaries: 0 (start) and n (end) to the cuts array
         cuts.push_back(0);
         cuts.push_back(n);
-
-        sort(cuts.begin(),cuts.end());
-
+      
+        // Sort cuts to process them in order
+        sort(cuts.begin(), cuts.end());
+      
+        // Total number of cut positions including boundaries
         int totalCuts = cuts.size();
-
-        int dp[110][110] = {0};
-
-        for(int length = 2;length<totalCuts;length++){
-            for(int left = 0;left+length <totalCuts;left++){
-                int right = left+length;
-
-                dp[left][right] = 1<<30;
-
-                for(int cutPos = left+1;cutPos<right;cutPos++){
-                    dp[left][right] = min(dp[left][right],
-                    dp[left][cutPos]+dp[cutPos][right]+ cuts[right]-cuts[left]);
+      
+        // dp[i][j] = minimum cost to cut the stick between cuts[i] and cuts[j]
+        int dp[110][110]{};
+      
+        // Iterate through all possible lengths of segments
+        // length starts from 2 (at least one cut between boundaries)
+        for (int length = 2; length < totalCuts; ++length) {
+            // Try all possible starting positions for current length
+            for (int left = 0; left + length < totalCuts; ++left) {
+                // Calculate ending position based on length
+                int right = left + length;
+              
+                // Initialize with a large value (infinity)
+                dp[left][right] = 1 << 30;
+              
+                // Try all possible cut positions between left and right
+                for (int cutPos = left + 1; cutPos < right; ++cutPos) {
+                    // Cost = left segment cost + right segment cost + current cut cost
+                    // Current cut cost = length of segment being cut (cuts[right] - cuts[left])
+                    dp[left][right] = min(dp[left][right], 
+                                          dp[left][cutPos] + dp[cutPos][right] + cuts[right] - cuts[left]);
                 }
             }
         }
-
-        return dp[0][totalCuts-1];
+      
+        // Return minimum cost to cut the entire stick (from position 0 to totalCuts-1)
+        return dp[0][totalCuts - 1];
     }
 };
