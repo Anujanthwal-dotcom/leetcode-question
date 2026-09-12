@@ -73,10 +73,11 @@ private:
     int tryAllPossibilities(int i,int l,int r,int m,vector<int>& nums, vector<int>& multipliers,vector<vector<int>>& dp){
         if(i>=m) return 0;
         if(l>r) return 0;
+        if(dp[l][r] != (int)-1e8) return dp[l][r];
         int chooseLeft = nums[l]*multipliers[i] + tryAllPossibilities(i+1,l+1,r,m,nums, multipliers, dp);
 
         int chooseRight = nums[r]*multipliers[i] + tryAllPossibilities(i+1,l,r-1,m,nums, multipliers, dp);
 
-        return max(chooseLeft, chooseRight);
+        return dp[l][r] = max(chooseLeft, chooseRight);
     }
 };
