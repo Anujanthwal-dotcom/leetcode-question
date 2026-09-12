@@ -65,7 +65,7 @@ public:
     int maximumScore(vector<int>& nums, vector<int>& multipliers) {
         int n=nums.size();
         int m = multipliers.size(); 
-        vector<vector<int>> dp(n+2,vector<int>(n+2,(int)-1e8));
+        vector<vector<int>> dp(n,vector<int>(n,(int)-1e8));
         return tryAllPossibilities(0,0,n-1,m,nums,multipliers,dp);
     }
 
