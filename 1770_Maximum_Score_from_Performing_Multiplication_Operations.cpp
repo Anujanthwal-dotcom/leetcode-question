@@ -65,14 +65,14 @@ public:
     int maximumScore(vector<int>& nums, vector<int>& multipliers) {
         int n=nums.size();
         int m = multipliers.size(); 
-        vector<vector<int>> dp(m+1,vector<int>(m+1,-1e9));
+        vector<vector<int>> dp(m+1,vector<int>(m+1,(int)-1e8));
         return tryAllPossibilities(0,0,n-1,n,m,nums,multipliers,dp);
     }
 
 private:
     int tryAllPossibilities(int i,int l,int r,int n,int m,vector<int>& nums, vector<int>& multipliers,vector<vector<int>>& dp){
         if(i>=m) return 0;
-        if(dp[l][r] != (int)1e9 ) return dp[l][r];
+        if(dp[l][r] != (int)1e8 ) return dp[l][r];
 
         int chooseLeft = nums[l] + tryAllPossibilities(i+1,l+1,r,n,m,nums, multipliers, dp);
 
