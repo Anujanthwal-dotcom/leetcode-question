@@ -58,26 +58,27 @@
 // 	  * -1000 <= nums[i], multipliers[i] <= 1000
 
 // recursion + memoization
-// tabulation is difficult here
 
 class Solution {
 public:
     int maximumScore(vector<int>& nums, vector<int>& multipliers) {
         int n=nums.size();
         int m = multipliers.size(); 
-        vector<vector<int>> dp(n,vector<int>(n,(int)-1e8));
-        return tryAllPossibilities(0,0,n-1,m,nums,multipliers,dp);
+        vector<vector<int>> dp(m,vector<int>(m,INT_MIN));
+        return tryAllPossibilities(0,0,n,m,nums,multipliers,dp);
     }
 
 private:
-    int tryAllPossibilities(int i,int l,int r,int m,vector<int>& nums, vector<int>& multipliers,vector<vector<int>>& dp){
-        if(i>=m) return 0;
-        if(l>r) return 0;
-        if(dp[l][r] != (int)-1e8) return dp[l][r];
-        int chooseLeft= nums[l]*multipliers[i] + tryAllPossibilities(i+1,l+1,r,m,nums, multipliers, dp);
+    int tryAllPossibilities(int i,int l,int n,int m,vector<int>& nums, vector<int>& multipliers,vector<vector<int>>& dp){
+        if(i==m) return 0;
+        if(dp[i][l] != INT_MIN) return dp[i][l];
+        
+        int r = n-1-(i-l);
 
-        int chooseRight = nums[r]*multipliers[i] + tryAllPossibilities(i+1,l,r-1,m,nums, multipliers, dp);
+        int chooseLeft= nums[l]*multipliers[i] + tryAllPossibilities(i+1,l+1,n,m,nums, multipliers, dp);
 
-        return dp[l][r] = max(chooseLeft, chooseRight);
+        int chooseRight = nums[r]*multipliers[i] + tryAllPossibilities(i+1,l,n,m,nums, multipliers, dp);
+
+        return dp[i][l] = max(chooseLeft, chooseRight);
     }
 };
