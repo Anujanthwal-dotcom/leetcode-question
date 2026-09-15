@@ -56,17 +56,20 @@ public:
                 }
             }
         }
+        return islands;
     }
 private:
     void dfs(vector<vector<char>>& grid, int n,int m,int i,int j){
         if(i<0 || i>=n || j<0 || j>=m){
             return;
         }
+        if(grid[i][j] == '0') return;
 
         grid[i][j] = '0';
 
-        dfs(grid,n,m);
-        dfs(grid,n,m);
-        
+        dfs(grid,n,m,i+1,j);
+        dfs(grid,n,m,i-1,j);
+        dfs(grid,n,m,i,j+1);
+        dfs(grid,n,m,i,j-1);
     }
 };
