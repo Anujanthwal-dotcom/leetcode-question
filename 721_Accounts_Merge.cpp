@@ -73,7 +73,7 @@ public:
             string name = accounts[i][0];
             string firstEmail = accounts[i][1];
 
-            if(visited.count(firstEmail)>0){
+            if(visited.count(firstEmail)==0){
                 vector<string> merged;
                 merged.push_back(name);
                 dfs(merged,firstEmail);
