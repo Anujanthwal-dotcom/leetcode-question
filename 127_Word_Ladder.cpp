@@ -46,59 +46,63 @@
 
 class Solution {
 public:
-    bool differByOne(string& a, string& b) {
-        int count = 0;
-        for (int i = 0; i < a.size(); i++) {
-            if (a[i] != b[i]) {
-                count++;
-            }
-        }
-        if (count == 1)
-            return true;
-        return false;
-    }
-
-    int ladderLength(string beginWord, string endWord,
-                     vector<string>& wordList) {
-        // bfs for min count
-        int length = 0;
-        bool found = false;
-        queue<string> q;
-        q.push(beginWord);
-        unordered_set<string> visited;
-
-        while (!q.empty()) {
-            int size = q.size();
-            length++;
-
-            while (size-- > 0) {
-                string front = q.front();
-                q.pop();
-
-                if (front == endWord) {
-                    found = true;
-                    break;
-                }
-
-                visited.insert(front);
-                
-                for (int i = 0; i < wordList.size(); i++) {
-                    if (visited.find(wordList[i]) != visited.end())
-                        continue;
-                    if (differByOne(front, wordList[i])) {
-                        q.push(wordList[i]);
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        // Convert word list to unordered set for O(1) lookup
+        unordered_set<string> availableWords(wordList.begin(), wordList.end());
+      
+        // Initialize BFS queue with the starting word
+        queue<string> bfsQueue;
+        bfsQueue.push(beginWord);
+      
+        // Track the transformation sequence length (starting from 1)
+        int sequenceLength = 1;
+      
+        // Perform level-order BFS traversal
+        while (!bfsQueue.empty()) {
+            // Increment length for each level of BFS
+            ++sequenceLength;
+          
+            // Process all words at the current level
+            int currentLevelSize = bfsQueue.size();
+            for (int i = 0; i < currentLevelSize; ++i) {
+                // Get and remove the front word from queue
+                string currentWord = bfsQueue.front();
+                bfsQueue.pop();
+              
+                // Try changing each character position
+                for (int charIndex = 0; charIndex < currentWord.size(); ++charIndex) {
+                    // Store original character for restoration
+                    char originalChar = currentWord[charIndex];
+                  
+                    // Try all possible lowercase letters
+                    for (char newChar = 'a'; newChar <= 'z'; ++newChar) {
+                        // Replace character at current position
+                        currentWord[charIndex] = newChar;
+                      
+                        // Skip if the transformed word is not in the available word set
+                        if (!availableWords.count(currentWord)) {
+                            continue;
+                        }
+                      
+                        // Check if we've reached the target word
+                        if (currentWord == endWord) {
+                            return sequenceLength;
+                        }
+                      
+                        // Add valid transformation to queue for next level
+                        bfsQueue.push(currentWord);
+                      
+                        // Remove word from available set to avoid revisiting
+                        availableWords.erase(currentWord);
                     }
+                  
+                    // Restore the original character for next iteration
+                    currentWord[charIndex] = originalChar;
                 }
             }
-
-            if (found == true) {
-                break;
-            }
         }
-
-        if (found == false) {
-            return 0;
-        }
-        return length;
+      
+        // No transformation sequence found
+        return 0;
     }
 };
