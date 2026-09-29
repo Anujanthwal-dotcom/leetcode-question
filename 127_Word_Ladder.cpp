@@ -61,7 +61,7 @@ public:
     int ladderLength(string beginWord, string endWord,
                      vector<string>& wordList) {
         // bfs for min count
-        int length = 1;
+        int length = 0;
         bool found = false;
         queue<string> q;
         q.push(beginWord);
