@@ -37,9 +37,9 @@ public:
 
             for(const int num: nums){
                 sum+= num >> i & 1;
-                sum%=3;
-                ans |= sum << i;
             }
+            sum%=3;
+            ans |= sum << i;
         }
 
         return ans;
