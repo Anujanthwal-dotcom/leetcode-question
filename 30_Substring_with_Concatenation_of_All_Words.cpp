@@ -90,6 +90,7 @@ public:
 
                 if(wordCount.count(currentWord)==0){
                     currentWindowCount.clear();
+                    left = right;
                     continue;
                 }
 
