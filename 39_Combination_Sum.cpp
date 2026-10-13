@@ -55,11 +55,13 @@ public:
         list.push_back(candidates[idx]);
         dfs(candidates,target-candidates[idx],list,idx);
         list.pop_back();
+
         if(idx + 1 <candidates.size()){
             list.push_back(candidates[idx+1]);
             dfs(candidates, target - candidates[idx+1], list, idx+1);
             list.pop_back();
         }    
+        
     }
 
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
