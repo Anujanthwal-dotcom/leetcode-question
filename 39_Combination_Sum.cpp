@@ -46,6 +46,7 @@ public:
     vector<vector<int>> globalList;
 
     void dfs(vector<int>& candidates, int target,vector<int>& list,int idx){
+        cout<<idx<<" "<<endl;
         if(idx ==candidates.size() || target<0) return;
         if(target == 0){
             globalList.push_back(list);
@@ -61,7 +62,7 @@ public:
             dfs(candidates, target - candidates[idx+1], list, idx+1);
             list.pop_back();
         }    
-        
+
     }
 
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
