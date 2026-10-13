@@ -46,12 +46,11 @@ public:
     vector<vector<int>> globalList;
 
     void dfs(vector<int>& candidates, int target,vector<int>& list,int idx){
-        cout<<idx<<" "<<endl;
-        if(idx ==candidates.size() || target<0) return;
         if(target == 0){
             globalList.push_back(list);
             return;
         }
+        if(idx ==candidates.size() || target<0) return;
 
         list.push_back(candidates[idx]);
         dfs(candidates,target-candidates[idx],list,idx);
