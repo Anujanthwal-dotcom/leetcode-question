@@ -46,7 +46,7 @@ public:
     int maxProfitHelper(int idx, bool canBuy, int fee, vector<int>& prices,  vector<vector<int>>& dp){
         if(idx == prices.size()) return 0;
 
-        if(dp[idx][canBuy] != 1e9) return dp[idx][canBuy];
+        if(dp[idx][canBuy] != -1e9) return dp[idx][canBuy];
 
 
         int buy = -1e9, sell = -1e9;
