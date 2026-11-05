@@ -42,30 +42,29 @@
 
 class Solution {
 public:
-
-    int maxProfitHelper(int idx, bool canBuy, int fee, vector<int>& prices,  vector<vector<int>>& dp){
-        if(idx == prices.size()) return 0;
-
-        if(dp[idx][canBuy] != -1e9) return dp[idx][canBuy];
-
-
-        int buy = -1e9, sell = -1e9;
-
-        if(canBuy){
-            buy = -prices[idx] + maxProfitHelper(idx+1, !canBuy, fee, prices, dp);
-        } else {
-            sell = prices[idx] - fee + maxProfitHelper(idx+1,!canBuy, fee, prices, dp);
-        }
-
-        int move_on = maxProfitHelper(idx+1, canBuy, fee, prices, dp);
-
-        return dp[idx][canBuy] = max({buy, sell, move_on});
-    }
-
     int maxProfit(vector<int>& prices, int fee) {
         int n = prices.size();
-        vector<vector<int>> dp(n+1,vector<int>(2,-1e9));
+        vector<vector<int>> dp(n+1, vector<int>(2));
 
-        return maxProfitHelper(0,true,fee,prices,dp);
+        dp[n][0] = 0;
+        dp[n][1] = 0;
+
+        for(int idx = n-1;idx>=0;idx--){
+            for(int canBuy = 1;canBuy >=0;canBuy-- ){
+                int buy = -1e9, sell = -1e9;
+
+                if(canBuy){
+                    buy = -prices[idx] + dp[idx+1][!canBuy];
+                } else {
+                    sell = prices[idx]-fee + dp[idx+1][!canBuy];
+                }
+
+                int move_on = dp[idx+1][canBuy];
+
+                dp[idx][canBuy] = max({buy, sell, move_on});            
+            }
+        }
+
+        return dp[0][1];
     }
 };
