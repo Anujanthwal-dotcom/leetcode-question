@@ -59,5 +59,5 @@ function maxProfit(prices: number[]): number {
     }
 
 
-    return Math.max(top[0],top[1]);
+    return top[0] + top[1];
 }
