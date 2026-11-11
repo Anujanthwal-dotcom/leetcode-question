@@ -39,8 +39,9 @@
 // 	  * 0 <= prices[i] <= 105
 
 function maxProfit(prices: number[]): number {
-    if(prices.length === 0 )return 0;
-
+    if(prices.length === 0 ) return 0;
+    
+    let n: number = prices.length;
     let initial: number = 0;
     let top: number[] = [0,0];
 
@@ -57,6 +58,14 @@ function maxProfit(prices: number[]): number {
             initial = i;
         }
     }
+
+    let total_profit: number = prices[n-1] - prices[initial];
+
+            if(top[0] < total_profit){
+                top[0] = total_profit;
+            } else if(top[1] < total_profit) {
+                top[1] = total_profit;
+            }
 
     console.log(top[0], top[1]);
     return top[0] + top[1];
