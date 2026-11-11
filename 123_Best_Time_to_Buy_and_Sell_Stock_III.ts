@@ -38,6 +38,20 @@
 //
 // 	  * 0 <= prices[i] <= 105
 
+function move(arr: number[], val:number): number[] {
+    if(arr[0] < arr[1] ){
+        if(arr[0] < val){
+            arr[0] = val;
+        }
+    } else {
+        if(arr[1] < val){
+            arr[1] = val;
+        }
+    }
+
+    return arr;
+}
+
 function maxProfit(prices: number[]): number {
     if(prices.length === 0 ) return 0;
     
@@ -49,11 +63,7 @@ function maxProfit(prices: number[]): number {
         if(prices[i] < prices[i-1]){
             let total_profit: number = prices[i-1] - prices[initial];
 
-            if(top[0] < total_profit){
-                top[0] = total_profit;
-            } else if(top[1] < total_profit) {
-                top[1] = total_profit;
-            }
+            top = move(top, total_profit);
 
             initial = i;
         }
