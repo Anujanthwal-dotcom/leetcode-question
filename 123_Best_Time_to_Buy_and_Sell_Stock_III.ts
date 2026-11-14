@@ -54,5 +54,3 @@ function maxProfit(prices: number[]): number {
 
     return sell2;
 };
-
-// 
