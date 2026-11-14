@@ -46,11 +46,12 @@ function maxProfit(prices: number[]): number {
 function helper(prices: number[], idx: number, canBuy: boolean, count: number):  number {
     if(prices.length === idx) return 0;
     if(count ===  2) return 0;
-    console.log(canBuy);
+
+
     let buy: number = -1e9;
     let sell: number = -1e9;
     if(canBuy){
-        buy = -prices[idx]+helper(prices, idx+1, !canBuy, count++);
+        buy = -prices[idx]+helper(prices, idx+1, !canBuy, count);
     } else {
         sell = prices[idx]+helper(prices, idx+1, !canBuy, count++);
     }
