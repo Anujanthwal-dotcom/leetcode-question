@@ -38,45 +38,24 @@
 //
 // 	  * 0 <= prices[i] <= 105
 
-function move(arr: number[], val:number): number[] {
-    if(arr[0] < arr[1] ){
-        if(arr[0] < val){
-            arr[0] = val;
-        }
-    } else {
-        if(arr[1] < val){
-            arr[1] = val;
-        }
-    }
-
-    return arr;
-}
-
 function maxProfit(prices: number[]): number {
-    if(prices.length === 0 ) return 0;
-    
-    let n: number = prices.length;
-    let initial: number = 0;
-    let top: number[] = [0,0];
+    return helper(prices, 0, true, 0);
+};
 
-    for(let i = 1;i< prices.length;i++){
-        if(prices[i] < prices[i-1]){
-            let total_profit: number = prices[i-1] - prices[initial];
 
-            top = move(top, total_profit);
+function helper(prices: number[], idx: number, canBuy: boolean, count: number):  number {
+    if(prices.length === idx) return 0;
+    if(count ===  2) return 0;
 
-            initial = i;
-        }
+    let buy: number = -1e9;
+    let sell: number = -1e9;
+    if(canBuy){
+        buy = -prices[idx]+helper(prices, idx+1, !canBuy, count++);
+    } else {
+        sell = prices[idx]+helper(prices, idx+1, !canBuy, count++);
     }
 
-    let total_profit: number = prices[n-1] - prices[initial];
+    let moveOn = helper(prices, idx+1, canBuy, count);
 
-            if(top[0] < total_profit){
-                top[0] = total_profit;
-            } else if(top[1] < total_profit) {
-                top[1] = total_profit;
-            }
-
-    console.log(top[0], top[1]);
-    return top[0] + top[1];
+    return Math.max(buy, sell, moveOn);
 }
