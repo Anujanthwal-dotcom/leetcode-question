@@ -39,12 +39,12 @@
 // 	  * 0 <= prices[i] <= 105
 
 function maxProfit(prices: number[]): number {
-    let buy1 = -prices[0];
+    let buy1 = Number.MIN_SAFE_INTEGER;
     let sell1 = 0;
-    let buy2 = -prices[0];
+    let buy2 = Number.MIN_SAFE_INTEGER;
     let sell2 = 0;
 
-    for(let i=1;i<prices.length;i++){
+    for(let i=0;i<prices.length;i++){
         let price = prices[i];
         buy1 = Math.max(buy1, -price);
         sell1 = Math.max(sell1, buy1+price);
