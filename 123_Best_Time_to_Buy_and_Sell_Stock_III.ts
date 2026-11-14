@@ -39,24 +39,20 @@
 // 	  * 0 <= prices[i] <= 105
 
 function maxProfit(prices: number[]): number {
-    return helper(prices, 0, true, 0);
-};
+    let buy1 = -prices[0];
+    let sell1 = 0;
+    let buy2 = -prices[0];
+    let sell2 = 0;
 
-
-function helper(prices: number[], idx: number, canBuy: boolean, count: number):  number {
-    if(prices.length === idx) return 0;
-    if(count ===  2) return 0;
-
-
-    let buy: number = -1e9;
-    let sell: number = -1e9;
-    if(canBuy){
-        buy = -prices[idx]+helper(prices, idx+1, !canBuy, count);
-    } else {
-        sell = prices[idx]+helper(prices, idx+1, !canBuy, count++);
+    for(let i=1;i<prices.length;i++){
+        let price = prices[i];
+        buy1 = Math.max(buy1, -price);
+        sell1 = Math.max(sell1, buy1+price);
+        buy2 = Math.max(buy2, sell1 - price);
+        sell2 = Math.max(sell2, buy2+price);
     }
 
-    let moveOn = helper(prices, idx+1, canBuy, count);
+    return sell2;
+};
 
-    return Math.max(buy, sell, moveOn);
-}
+// 
