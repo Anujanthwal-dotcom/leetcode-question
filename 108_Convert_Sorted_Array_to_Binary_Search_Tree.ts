@@ -49,7 +49,7 @@ function sortedArrayToBST(nums: number[]): TreeNode | null {
 function helper(nums: number[], left: number, right: number): TreeNode | null {
     if(left > right) return null;
 
-    let mid: number = left + (right -left)/2;
+    let mid: number = left + Math.floor((right-left)/2);
     let nodeLeft: TreeNode = helper(nums,left,mid-1);
     let nodeRight: TreeNode = helper(nums,mid+1,right);
 
