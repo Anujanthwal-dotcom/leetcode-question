@@ -44,21 +44,23 @@
  * }
  */
 
-let preOrder: number[] = [];
 
-function preorder(root: TreeNode | null) {
+
+function preorder(root: TreeNode | null, preOrder: number[]) {
     if(root === null) return;
     if(root.left === null && root.right ===null){
         preOrder.push(root.val);
         return;
     }
 
-    preorder(root.left);
+    preorder(root.left,preOrder);
     preOrder.push(root.val);
-    preorder(root.right);
+    preorder(root.right, preOrder);
 } 
-function kthSmallest(root: TreeNode | null, k: number): number {
-    preorder(root);    
 
+function kthSmallest(root: TreeNode | null, k: number): number {
+    if(root === null) return 0;
+    let preOrder: number[] = [];
+    preorder(root, preOrder);    
     return preOrder[k-1];
 };
