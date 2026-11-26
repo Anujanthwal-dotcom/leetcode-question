@@ -110,6 +110,8 @@ function flatten(head: _Node | null): _Node | null {
 
             prevPointer.next = childListHead;
             childListHead.prev = prevPointer;
+
+            prevPointer.child = null;
         } else {
             pointer = pointer.next;
         }
