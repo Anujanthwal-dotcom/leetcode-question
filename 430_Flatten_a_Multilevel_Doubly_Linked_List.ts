@@ -85,6 +85,15 @@
  * }
  */
 
+function print(head: _Node){
+    let pointer: _Node = head;
+
+    while(pointer !== null){
+        console.log(pointer.val);
+        pointer = pointer.next;
+    }
+}
+
 
 function flatten(head: _Node | null): _Node | null {
     if(head === null) return null;
@@ -116,6 +125,8 @@ function flatten(head: _Node | null): _Node | null {
             pointer = pointer.next;
         }
     }
+
+    print(head);
 
     return head;
 };
