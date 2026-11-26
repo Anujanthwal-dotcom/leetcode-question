@@ -105,7 +105,9 @@ function flatten(head: _Node | null): _Node | null {
             let prevPointer = pointer;
             pointer = pointer.next;
 
-            pointer.prev = childListTail;
+            if(pointer !== null)
+                pointer.prev = childListTail;
+            
             childListTail.next = pointer;
 
             prevPointer.next = childListHead;
