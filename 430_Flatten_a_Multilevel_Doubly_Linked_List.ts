@@ -85,15 +85,6 @@
  * }
  */
 
-function print(head: _Node){
-    let pointer: _Node = head;
-
-    while(pointer !== null){
-        console.log(pointer.val);
-        pointer = pointer.next;
-    }
-}
-
 
 function flatten(head: _Node | null): _Node | null {
     if(head === null) return null;
@@ -111,22 +102,18 @@ function flatten(head: _Node | null): _Node | null {
             }
 
             //shifting
+            let prevPointer = pointer;
             pointer = pointer.next;
-            let prevPointer = pointer.prev;
 
             pointer.prev = childListTail;
             childListTail.next = pointer;
 
             prevPointer.next = childListHead;
             childListHead.prev = prevPointer;
-
-            continue;
         } else {
             pointer = pointer.next;
         }
     }
-
-    print(head);
 
     return head;
 };
