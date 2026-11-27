@@ -43,19 +43,28 @@ type pair = {
 }
 
 function topKFrequent(words: string[], k: number): string[] {
-    let map: Map<string,number> = new Map<string, number>();
+    let map: Map<string, number> = new Map<string, number>();
 
-    for(let s of words){
-        map.set(s, (map.get(s) ?? 0) + 1 );
+    for (let s of words) {
+        map.set(s, (map.get(s) ?? 0) + 1);
     }
 
     let arr: pair[] = [];
 
-    for(let [key,value] of map){
-        arr.push({value, key});
+    for (let [key, value] of map) {
+        arr.push({ value, key });
     }
 
-    arr.sort((a,b)=> b.value - a.value);
+    arr.sort((a, b) => {
+        if (a.value !== b.value) {
+            return b.value - a.value;
+        }
+        else {
+            return a.key.length - b.key.length;
+        }
 
-    return arr.slice(0,k).map(p => p.key);
+
+    });
+
+    return arr.slice(0, k).map(p => p.key);
 };
