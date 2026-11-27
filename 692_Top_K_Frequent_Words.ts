@@ -60,7 +60,7 @@ function topKFrequent(words: string[], k: number): string[] {
             return b.value - a.value;
         }
         else {
-            return a.key.length - b.key.length;
+            return a.key.localeCompare(b.key);
         }
 
 
